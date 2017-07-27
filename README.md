@@ -1,6 +1,7 @@
 # CSV Data Source for Apache Spark 1.x
 
-#As spark 2.0 haven't migrated all features spark-csv provided, i.e: quoteMode (NON_NUMERIC ..), this is a workaround to port existing functions to spark 2
+### :alarm_clock: As spark 2.0 haven't migrated all features spark-csv provided, i.e: quoteMode (NON_NUMERIC ..), this is a workaround to port existing functions to spark 2
+
 __NOTE: This functionality has been inlined in Apache Spark 2.x. This package is in maintenance mode and we only accept critical bug fixes.__
 
 A library for parsing and querying CSV data with Apache Spark, for Spark SQL and DataFrames.
