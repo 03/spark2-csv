@@ -16,7 +16,7 @@
  */
 // scalastyle:on
 
-package com.databricks.spark.csv.readers
+package com.databricks.spark2.csv.readers
 
 import java.io.StringReader
 

@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark2.csv
 
 import java.io.File
 import java.nio.charset.UnsupportedCharsetException
 import java.sql.{Date, Timestamp}
 import java.text.SimpleDateFormat
-import scala.io.Source
 
-import com.databricks.spark.csv.util.ParseModes
+import com.databricks.spark2.csv.util.ParseModes
 import org.apache.hadoop.io.compress.GzipCodec
-import org.apache.spark.sql.{SQLContext, Row, SaveMode}
-import org.apache.spark.{SparkContext, SparkException}
 import org.apache.spark.sql.types._
-import org.scalatest.{BeforeAndAfterAll, FunSuite}
+import org.apache.spark.sql.{Row, SQLContext, SaveMode}
+import org.apache.spark.{SparkContext, SparkException}
 import org.scalatest.Matchers._
+import org.scalatest.{BeforeAndAfterAll, FunSuite}
+
+import scala.io.Source
 
 abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
   val carsFile = "src/test/resources/cars.csv"
@@ -108,7 +109,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTable
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsFile", header "true", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -134,7 +135,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTable
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsFile8859", header "true", parserLib "$parserLib",
          |charset "iso-8859-1", delimiter "þ")
       """.stripMargin.replaceAll("\n", " "))
@@ -147,7 +148,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTable
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsTsvFile", header "true", delimiter "\t", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -162,7 +163,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
          |CREATE TEMPORARY TABLE carsTable
          |(yearMade double, makeName string, modelName string, priceTag decimal,
          | comments string, grp string)
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsTsvFile", header "true", delimiter "\t", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -336,7 +337,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTable
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsAltFile", header "true", quote "'", delimiter "|",
          |parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
@@ -401,7 +402,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(s"""
            |CREATE TEMPORARY TABLE carsTable
            |(yearMade double, makeName string, modelName string, comments string, grp string)
-           |USING com.databricks.spark.csv
+           |USING com.databricks.spark2.csv
            |OPTIONS (path "$emptyFile", header "false", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -412,7 +413,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(s"""
            |CREATE TEMPORARY TABLE carsTable
            |(yearMade double, makeName string, modelName string, comments string, grp string)
-           |USING com.databricks.spark.csv
+           |USING com.databricks.spark2.csv
            |OPTIONS (path "$carsFile", header "true", parserLib "$parserLib", nullValue "-")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -437,13 +438,13 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTableIO
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsFile", header "true", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
     sqlContext.sql(s"""
            |CREATE TEMPORARY TABLE carsTableEmpty
            |(yearMade double, makeName string, modelName string, comments string, grp string)
-           |USING com.databricks.spark.csv
+           |USING com.databricks.spark2.csv
            |OPTIONS (path "$tempEmptyDir", header "false", parserLib "$parserLib")
       """.stripMargin.replaceAll("\n", " "))
 
@@ -605,8 +606,9 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     val copyFilePath = tempEmptyDir + "cars-copy.csv"
 
     val cars = sqlContext.csvFile(carsFile, parserLib = parserLib)
-    cars.save("com.databricks.spark.csv", SaveMode.Overwrite,
-      Map("path" -> copyFilePath, "header" -> "true", "codec" -> classOf[GzipCodec].getName))
+//    cars.save("com.databricks.spark2.csv", SaveMode.Overwrite,
+//      Map("path" -> copyFilePath, "header" -> "true", "codec" -> classOf[GzipCodec].getName))
+    cars.saveAsCsvFile(copyFilePath, Map("path" -> copyFilePath, "header" -> "true", "codec" -> classOf[GzipCodec].getName))
     val carsCopyPartFile = new File(copyFilePath, "part-00000.gz")
     // Check that the part file has a .gz extension
     assert(carsCopyPartFile.exists())
@@ -624,8 +626,9 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     val copyFilePath = tempEmptyDir + "cars-copy.csv"
 
     val cars = sqlContext.csvFile(carsFile, parserLib = parserLib)
-    cars.save("com.databricks.spark.csv", SaveMode.Overwrite,
-      Map("path" -> copyFilePath, "header" -> "true", "codec" -> "gZiP"))
+//    cars.save("com.databricks.spark2.csv", SaveMode.Overwrite,
+//      Map("path" -> copyFilePath, "header" -> "true", "codec" -> "gZiP"))
+    cars.saveAsCsvFile(copyFilePath, Map("path" -> copyFilePath, "header" -> "true", "codec" -> classOf[GzipCodec].getName))
     val carsCopyPartFile = new File(copyFilePath, "part-00000.gz")
     // Check that the part file has a .gz extension
     assert(carsCopyPartFile.exists())
@@ -722,7 +725,7 @@ abstract class AbstractCsvSuite extends FunSuite with BeforeAndAfterAll {
     sqlContext.sql(
       s"""
          |CREATE TEMPORARY TABLE carsTable
-         |USING com.databricks.spark.csv
+         |USING com.databricks.spark2.csv
          |OPTIONS (path "$carsFile", header "true", parserLib "$parserLib", inferSchema "true")
       """.stripMargin.replaceAll("\n", " "))
 

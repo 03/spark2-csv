@@ -1,4 +1,4 @@
-name := "spark-csv"
+name := "spark2-csv"
 
 version := "1.5.0"
 
@@ -6,11 +6,11 @@ organization := "com.databricks"
 
 scalaVersion := "2.11.7"
 
-spName := "databricks/spark-csv"
+spName := "databricks/spark2-csv"
 
 crossScalaVersions := Seq("2.10.5", "2.11.7")
 
-sparkVersion := "1.6.0"
+sparkVersion := "2.1.1"
 
 val testSparkVersion = settingKey[String]("The version of Spark to test against.")
 
@@ -92,13 +92,13 @@ mimaDefaultSettings ++ Seq(
   previousArtifact := Some("com.databricks" %% "spark-csv" % "1.2.0"),
   binaryIssueFilters ++= Seq(
     // These classes are not intended to be public interfaces:
-    ProblemFilters.excludePackage("com.databricks.spark.csv.CsvRelation"),
-    ProblemFilters.excludePackage("com.databricks.spark.csv.util.InferSchema"),
-    ProblemFilters.excludePackage("com.databricks.spark.sql.readers"),
-    ProblemFilters.excludePackage("com.databricks.spark.csv.util.TypeCast"),
+    ProblemFilters.excludePackage("com.databricks.spark2.csv.CsvRelation"),
+    ProblemFilters.excludePackage("com.databricks.spark2.csv.util.InferSchema"),
+    ProblemFilters.excludePackage("com.databricks.spark2.sql.readers"),
+    ProblemFilters.excludePackage("com.databricks.spark2.csv.util.TypeCast"),
     // We allowed the private `CsvRelation` type to leak into the public method signature:
     ProblemFilters.exclude[IncompatibleResultTypeProblem](
-      "com.databricks.spark.csv.DefaultSource.createRelation")
+      "com.databricks.spark2.csv.DefaultSource.createRelation")
   )
 )
 

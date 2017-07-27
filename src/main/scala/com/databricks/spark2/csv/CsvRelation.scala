@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark2.csv
 
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -29,10 +29,10 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.apache.spark.sql.sources.{BaseRelation, InsertableRelation, PrunedScan, TableScan}
 import org.apache.spark.sql.types._
-import com.databricks.spark.csv.readers.{BulkCsvReader, LineCsvReader}
-import com.databricks.spark.csv.util._
+import com.databricks.spark2.csv.readers.{BulkCsvReader, LineCsvReader}
+import com.databricks.spark2.csv.util._
 
-case class CsvRelation protected[spark] (
+case class CsvRelation protected[spark2] (
     baseRDD: () => RDD[String],
     location: Option[String],
     useHeader: Boolean,

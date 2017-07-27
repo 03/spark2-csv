@@ -1,4 +1,4 @@
-package com.databricks.spark.csv;
+package com.databricks.spark2.csv;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,8 +32,9 @@ public class JavaCsvSuite {
 
   @Test
   public void testCsvParser() {
-    DataFrame df = (new CsvParser()).withUseHeader(true).csvFile(sqlContext, carsFile);
-    int result = df.select("model").collect().length;
+    Dataset<Row> df = (new CsvParser()).withUseHeader(true).csvFile(sqlContext, carsFile);
+//    int result = df.select("model").collect().length;
+    int result = df.select("model").collectAsList().size();
     Assert.assertEquals(result, numCars);
   }
 
@@ -43,19 +44,21 @@ public class JavaCsvSuite {
     options.put("header", "true");
     options.put("path", carsFile);
 
-    DataFrame df = sqlContext.load("com.databricks.spark.csv", options);
-    int result = df.select("year").collect().length;
+    Dataset<Row> df = sqlContext.load("com.databricks.spark2.csv", options);
+    int result = df.select("year").collectAsList().size();
     Assert.assertEquals(result, numCars);
   }
 
   @Test
   public void testSave() {
-    DataFrame df = (new CsvParser()).withUseHeader(true).csvFile(sqlContext, carsFile);
+    Dataset<Row> df = (new CsvParser()).withUseHeader(true).csvFile(sqlContext, carsFile);
     TestUtils.deleteRecursively(new File(tempDir));
-    df.select("year", "model").save(tempDir, "com.databricks.spark.csv");
+//    df.select("year", "model").save(tempDir, "com.databricks.spark2.csv");
+    df.select("year", "model").write().format("com.databricks.spark2.csv").save(tempDir);
 
-    DataFrame newDf = (new CsvParser()).csvFile(sqlContext, tempDir);
-    int result = newDf.select("C1").collect().length;
+    Dataset<Row> newDf = (new CsvParser()).csvFile(sqlContext, tempDir);
+//    int result = newDf.select("C1").collect().length;
+    int result = newDf.select("C1").collectAsList().size();
     Assert.assertEquals(result, numCars);
 
   }

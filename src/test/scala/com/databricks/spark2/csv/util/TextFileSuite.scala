@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark2.csv.util
 
 import java.nio.charset.UnsupportedCharsetException
 

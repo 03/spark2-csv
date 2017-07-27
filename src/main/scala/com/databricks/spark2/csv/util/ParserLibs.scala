@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 // scalastyle:on
-package com.databricks.spark.csv.util
+package com.databricks.spark2.csv.util
 
 private[csv] object ParserLibs {
   val OLD = "COMMONS"
