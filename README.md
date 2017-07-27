@@ -1,4 +1,4 @@
-# CSV Data Source for Apache Spark 1.x
+# CSV Data Source for Apache Spark 2
 
 ### :alarm_clock: As spark 2.0 haven't migrated all features spark-csv provided, i.e: quoteMode (NON_NUMERIC ..), this is a workaround to port existing functions to spark 2
 
@@ -19,13 +19,13 @@ You can link against this library in your program at the following coordinates:
 ### Scala 2.10
 ```
 groupId: com.databricks
-artifactId: spark-csv_2.10
+artifactId: spark2-csv_2.10
 version: 1.5.0
 ```
 ### Scala 2.11
 ```
 groupId: com.databricks
-artifactId: spark-csv_2.11
+artifactId: spark2-csv_2.11
 version: 1.5.0
 ```
 
@@ -34,12 +34,12 @@ This package can be added to  Spark using the `--packages` command line option. 
 
 ### Spark compiled with Scala 2.11
 ```
-$SPARK_HOME/bin/spark-shell --packages com.databricks:spark-csv_2.11:1.5.0
+$SPARK_HOME/bin/spark-shell --packages com.databricks:spark2-csv_2.11:1.5.0
 ```
 
 ### Spark compiled with Scala 2.10
 ```
-$SPARK_HOME/bin/spark-shell --packages com.databricks:spark-csv_2.10:1.5.0
+$SPARK_HOME/bin/spark-shell --packages com.databricks:spark2-csv_2.10:1.5.0
 ```
 
 ## Features
