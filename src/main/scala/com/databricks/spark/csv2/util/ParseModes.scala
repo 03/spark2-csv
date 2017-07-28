@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
-private[csv] object ParseModes {
+private[csv2] object ParseModes {
 
   val PERMISSIVE_MODE = "PERMISSIVE"
   val DROP_MALFORMED_MODE = "DROPMALFORMED"

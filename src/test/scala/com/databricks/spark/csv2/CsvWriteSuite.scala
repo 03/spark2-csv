@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark.csv2
 
 import java.io.File
 
+import com.databricks.spark.csv2.CsvParser
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, FileUtil, Path}
 import org.apache.spark.SparkContext

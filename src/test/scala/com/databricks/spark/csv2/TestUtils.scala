@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark.csv2
 
 import java.io.{File, IOException}
 
-private[csv] object TestUtils {
+private[csv2] object TestUtils {
   /**
    * This function deletes a file or a directory with everything that's in it. This function is
    * copied from Spark with minor modifications made to it. See original source at:

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import java.math.BigDecimal
 import java.sql.{Date, Timestamp}
@@ -39,7 +39,7 @@ object TypeCast {
    * @param datum string value
    * @param castType SparkSQL type
    */
-  private[csv] def castTo(
+  private[csv2] def castTo(
       datum: String,
       castType: DataType,
       nullable: Boolean = true,
@@ -81,7 +81,7 @@ object TypeCast {
    *
    */
   @throws[IllegalArgumentException]
-  private[csv] def toChar(str: String): Char = {
+  private[csv2] def toChar(str: String): Char = {
     if (str.charAt(0) == '\\') {
       str.charAt(1)
       match {

@@ -16,7 +16,7 @@
  */
 // scalastyle:on
 
-package com.databricks.spark.csv.readers
+package com.databricks.spark.csv2.readers
 
 import java.io.StringReader
 
@@ -78,7 +78,7 @@ private[readers] abstract class CsvReader(
  * @param inputBufSize size of buffer to use for parsing input, tune for performance
  * @param maxCols maximum number of columns allowed, for safety against bad inputs
  */
-private[csv] class LineCsvReader(
+private[csv2] class LineCsvReader(
     fieldSep: Char = ',',
     lineSep: String = "\n",
     quote: Char = '"',
@@ -127,7 +127,7 @@ private[csv] class LineCsvReader(
  * @param inputBufSize size of buffer to use for parsing input, tune for performance
  * @param maxCols maximum number of columns allowed, for safety against bad inputs
  */
-private[csv] class BulkCsvReader(
+private[csv2] class BulkCsvReader(
     iter: Iterator[String],
     split: Int,      // for debugging
     fieldSep: Char = ',',

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -23,7 +23,7 @@ import scala.util.control.Exception._
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types._
 
-private[csv] object InferSchema {
+private[csv2] object InferSchema {
 
   /**
    * Similar to the JSON schema inference.
@@ -73,7 +73,7 @@ private[csv] object InferSchema {
     }
   }
 
-  private[csv] def mergeRowTypes(
+  private[csv2] def mergeRowTypes(
       first: Array[DataType],
       second: Array[DataType]): Array[DataType] = {
     first.zipAll(second, NullType, NullType).map { case ((a, b)) =>
@@ -85,7 +85,7 @@ private[csv] object InferSchema {
    * Infer type of string field. Given known type Double, and a string "1", there is no
    * point checking if it is an Int, as the final type must be Double or higher.
    */
-  private[csv] def inferField(typeSoFar: DataType,
+  private[csv2] def inferField(typeSoFar: DataType,
       field: String,
       nullValue: String = "",
       dateFormatter: SimpleDateFormat = null): DataType = {
@@ -161,7 +161,7 @@ private[csv] object InferSchema {
 
   /**
    * Copied from internal Spark api
-   * [[org.apache.spark.sql.catalyst.analysis.HiveTypeCoercion]]
+   * [[org.apache.spark.sql.catalyst.analysis]]
    */
   private val numericPrecedence: IndexedSeq[DataType] =
     IndexedSeq[DataType](
@@ -172,11 +172,12 @@ private[csv] object InferSchema {
       FloatType,
       DoubleType,
       TimestampType,
-      DecimalType.Unlimited)
+//      DecimalType.Unlimited)
+      DecimalType.SYSTEM_DEFAULT)
 
   /**
    * Copied from internal Spark api
-   * [[org.apache.spark.sql.catalyst.analysis.HiveTypeCoercion]]
+   * [[org.apache.spark.sql.catalyst.analysis]]
    */
   val findTightestCommonType: (DataType, DataType) => Option[DataType] = {
     case (t1, t2) if t1 == t2 => Some(t1)

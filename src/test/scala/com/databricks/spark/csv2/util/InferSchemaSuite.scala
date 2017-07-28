@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import java.text.SimpleDateFormat
 
+import com.databricks.spark.csv2.util.InferSchema
 import org.apache.spark.sql.types._
 import org.scalatest.FunSuite
 

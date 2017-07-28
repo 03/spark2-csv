@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import scala.util.control.Exception._
 
 import org.apache.hadoop.io.compress._
 
-private[csv] object CompressionCodecs {
+private[csv2] object CompressionCodecs {
   private val shortCompressionCodecNames: Map[String, String] = {
     val codecMap = collection.mutable.Map.empty[String, String]
     allCatch toTry(codecMap += "bzip2" -> classOf[BZip2Codec].getName)

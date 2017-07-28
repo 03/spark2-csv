@@ -1,16 +1,16 @@
-name := "spark-csv"
+name := "spark-csv2"
 
 version := "1.5.0"
 
 organization := "com.databricks"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
-spName := "databricks/spark-csv"
+spName := "databricks/spark-csv2"
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+crossScalaVersions := Seq("2.10.5", "2.11.8")
 
-sparkVersion := "1.6.0"
+sparkVersion := "2.1.1"
 
 val testSparkVersion = settingKey[String]("The version of Spark to test against.")
 
@@ -19,11 +19,11 @@ testSparkVersion := sys.props.get("spark.testVersion").getOrElse(sparkVersion.va
 sparkComponents := Seq("core", "sql")
 
 libraryDependencies ++= Seq(
-  "org.apache.commons" % "commons-csv" % "1.1",
-  "com.univocity" % "univocity-parsers" % "1.5.1",
-  "org.slf4j" % "slf4j-api" % "1.7.5" % "provided",
+  "org.apache.commons" % "commons-csv" % "1.4",
+  "com.univocity" % "univocity-parsers" % "2.4.1",
+  "org.slf4j" % "slf4j-api" % "1.7.25" % "provided",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "com.novocode" % "junit-interface" % "0.9" % "test"
+  "com.novocode" % "junit-interface" % "0.11" % "test"
 )
 
 libraryDependencies ++= Seq(
@@ -52,24 +52,24 @@ publishTo := {
 
 pomExtra := (
   <url>https://github.com/databricks/spark-csv</url>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <url>git@github.com:databricks/spark-csv.git</url>
-    <connection>scm:git:git@github.com:databricks/spark-csv.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <id>falaki</id>
-      <name>Hossein Falaki</name>
-      <url>http://www.falaki.net</url>
-    </developer>
-  </developers>)
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
+    <scm>
+      <url>git@github.com:databricks/spark-csv.git</url>
+      <connection>scm:git:git@github.com:databricks/spark-csv.git</connection>
+    </scm>
+    <developers>
+      <developer>
+        <id>falaki</id>
+        <name>Hossein Falaki</name>
+        <url>http://www.falaki.net</url>
+      </developer>
+    </developers>)
 
 parallelExecution in Test := false
 
@@ -92,13 +92,13 @@ mimaDefaultSettings ++ Seq(
   previousArtifact := Some("com.databricks" %% "spark-csv" % "1.2.0"),
   binaryIssueFilters ++= Seq(
     // These classes are not intended to be public interfaces:
-    ProblemFilters.excludePackage("com.databricks.spark.csv.CsvRelation"),
-    ProblemFilters.excludePackage("com.databricks.spark.csv.util.InferSchema"),
-    ProblemFilters.excludePackage("com.databricks.spark.sql.readers"),
-    ProblemFilters.excludePackage("com.databricks.spark.csv.util.TypeCast"),
+    ProblemFilters.excludePackage("com.databricks.spark.csv2.CsvRelation"),
+    ProblemFilters.excludePackage("com.databricks.spark.csv2.util.InferSchema"),
+    ProblemFilters.excludePackage("com.databricks.spark.csv2.readers"),
+    ProblemFilters.excludePackage("com.databricks.spark.csv2.util.TypeCast"),
     // We allowed the private `CsvRelation` type to leak into the public method signature:
     ProblemFilters.exclude[IncompatibleResultTypeProblem](
-      "com.databricks.spark.csv.DefaultSource.createRelation")
+      "com.databricks.spark.csv2.DefaultSource.createRelation")
   )
 )
 

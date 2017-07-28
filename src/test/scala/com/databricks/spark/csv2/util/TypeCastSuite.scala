@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import java.math.BigDecimal
 import java.sql.{Date, Timestamp}
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+import com.databricks.spark.csv2.util.TypeCast
 import org.scalatest.FunSuite
-
 import org.apache.spark.sql.types._
 
 class TypeCastSuite extends FunSuite {
@@ -29,7 +29,8 @@ class TypeCastSuite extends FunSuite {
   test("Can parse decimal type values") {
     val stringValues = Seq("10.05", "1,000.01", "158,058,049.001")
     val decimalValues = Seq(10.05, 1000.01, 158058049.001)
-    val decimalType = new DecimalType(None)
+//    val decimalType = new DecimalType(None)
+    val decimalType = new DecimalType()
 
     stringValues.zip(decimalValues).foreach { case (strVal, decimalVal) =>
       assert(TypeCast.castTo(strVal, decimalType) === new BigDecimal(decimalVal.toString))

@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv.util
+package com.databricks.spark.csv2.util
 
 import java.nio.charset.UnsupportedCharsetException
 
+import com.databricks.spark.csv2.util.TextFile
 import org.apache.spark.SparkContext
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
 

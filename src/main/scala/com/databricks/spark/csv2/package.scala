@@ -15,17 +15,16 @@
  */
 package com.databricks.spark
 
+import java.sql.{Date, Timestamp}
 import java.text.SimpleDateFormat
-import java.sql.{Timestamp, Date}
 
+import com.databricks.spark.csv2.util.TextFile
 import org.apache.commons.csv.{CSVFormat, QuoteMode}
 import org.apache.hadoop.io.compress.CompressionCodec
 import org.apache.spark.sql.types.{DateType, TimestampType}
-
 import org.apache.spark.sql.{DataFrame, SQLContext}
-import com.databricks.spark.csv.util.TextFile
 
-package object csv {
+package object csv2 {
 
   val defaultCsvFormat =
     CSVFormat.DEFAULT.withRecordSeparator(System.getProperty("line.separator", "\n"))

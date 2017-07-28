@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark.csv2
 
+import com.databricks.spark.csv2.util.{CompressionCodecs, ParserLibs, TextFile, TypeCast}
 import org.apache.hadoop.fs.Path
-import org.apache.spark.sql.{DataFrame, SaveMode, SQLContext}
 import org.apache.spark.sql.sources._
 import org.apache.spark.sql.types.StructType
-import com.databricks.spark.csv.util.{CompressionCodecs, ParserLibs, TextFile, TypeCast}
+import org.apache.spark.sql.{DataFrame, SQLContext, SaveMode}
 
 /**
  * Provides access to CSV data from pure SQL statements (i.e. for users of the

@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.databricks.spark.csv
+package com.databricks.spark.csv2
 
 import java.io.IOException
 import java.text.SimpleDateFormat
 
+import com.databricks.spark.csv2.readers.{BulkCsvReader, LineCsvReader}
+
 import scala.collection.JavaConversions._
 import scala.util.control.NonFatal
-
 import org.apache.commons.csv._
 import org.apache.hadoop.fs.Path
 import org.slf4j.LoggerFactory
-
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.apache.spark.sql.sources.{BaseRelation, InsertableRelation, PrunedScan, TableScan}
 import org.apache.spark.sql.types._
-import com.databricks.spark.csv.readers.{BulkCsvReader, LineCsvReader}
-import com.databricks.spark.csv.util._
+import com.databricks.spark.csv2.util._
 
 case class CsvRelation protected[spark] (
     baseRDD: () => RDD[String],
