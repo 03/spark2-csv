@@ -29,5 +29,5 @@ class DefaultSource15 extends DefaultSource with DataSourceRegister {
   /**
    * Short alias for spark-csv data source.
    */
-  override def shortName(): String = "csv"
+  override def shortName(): String = "csv2"
 }
